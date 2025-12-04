@@ -2,6 +2,7 @@
 # requires-python = ">=3.10"
 # dependencies = [
 #     "altair==6.0.0",
+#     "anthropic==0.75.0",
 #     "numpy==2.2.6",
 #     "pandas==2.3.3",
 #     "ucimlrepo==0.0.7",
@@ -20,9 +21,7 @@ def _():
     import pandas as pd
     import numpy as np
     import altair as alt
-
-    from ucimlrepo import fetch_ucirepo
-    return fetch_ucirepo, mo
+    return mo, pd
 
 
 @app.cell
@@ -32,11 +31,10 @@ def _(mo):
 
 
 @app.cell
-def _(fetch_ucirepo, mo):
+def _(mo, pd):
     @mo.cache()
     def fetch_bike_data():
-        bike_data_source = fetch_ucirepo(id=560) 
-        bike_df = bike_data_source.data.original
+        bike_df = pd.read_csv("data/SeoulBikeData.csv", encoding='latin-1')
         return bike_df
 
     bike_df = fetch_bike_data()
