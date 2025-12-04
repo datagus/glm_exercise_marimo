@@ -5,7 +5,6 @@
 #     "anthropic==0.75.0",
 #     "numpy==2.2.6",
 #     "pandas==2.3.3",
-#     "ucimlrepo==0.0.7",
 # ]
 # ///
 
@@ -34,7 +33,8 @@ def _(mo):
 def _(mo, pd):
     @mo.cache()
     def fetch_bike_data():
-        bike_df = pd.read_csv("data/SeoulBikeData.csv", encoding='latin-1')
+        url = "https://raw.githubusercontent.com/datagus/glm_exercise_marimo/main/data/SeoulBikeData.csv"
+        bike_df = pd.read_csv(url, encoding='latin-1')
         return bike_df
 
     bike_df = fetch_bike_data()
